@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { io } from '../lib/socket-client.server.server';
+	import { io } from '../lib/socket-client';
 	import { player } from '../lib/store';
 	import './page.css';
 
