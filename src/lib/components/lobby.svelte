@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { io } from '$lib/socket-client.server.server';
+	import { io } from '$lib/socket-client';
 	import { lobby } from '$lib/store';
 	import { onMount } from 'svelte';
 	import ChatWindow from './chat-window.svelte';
