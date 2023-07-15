@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: 'AlienLeague';
+		src: local('AlienLeague'), url('/fonts/alienleague.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'AlienLeagueBold';
+		src: local('AlienLeagueBold'), url('/fonts/alienleaguebold.ttf') format('ttf');
+	}
+
+	@font-face {
+		font-family: 'AlienLeagueGradient';
+		src: local('AlienLeagueGradient'), url('/fonts/alienleaguegrad.ttf') format('ttf');
+	}
+
+	@font-face {
+		font-family: 'AlienLeagueGradientBold';
+		src: local('AlienLeagueGradientBold'), url('/fonts/alienleaguegradbold.ttf') format('ttf');
+	}
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgb(20, 26, 36);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(43, 55, 77);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(56, 72, 100);
+}
