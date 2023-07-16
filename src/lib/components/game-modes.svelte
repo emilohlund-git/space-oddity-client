@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { io } from '$lib/socket-client';
+	import { socket } from '$lib/socket-client';
 	import { currentStep } from '$lib/store';
 	import { LobbySteps } from '../types';
 	import Logo from './logo.svelte';
 
 	const handleCreateLobby = () => {
-		io.emit('CreateLobby');
+		socket.emit('CreateLobby');
 		currentStep.set(LobbySteps.Lobby);
 	};
 </script>

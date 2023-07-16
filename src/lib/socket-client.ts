@@ -4,11 +4,11 @@ import type { ClientEvents, ServerEvents } from "./types";
 
 const ENDPOINT = PUBLIC_SERVER_URL;
 
-const socket = ioClient(ENDPOINT, {
+const io = ioClient(ENDPOINT, {
   extraHeaders: {
     'x-api-key': PUBLIC_API_KEY
   },
   autoConnect: true
 })
 
-export const io = socket as Socket<ServerEvents, ClientEvents>
+export const socket = io as Socket<ServerEvents, ClientEvents>

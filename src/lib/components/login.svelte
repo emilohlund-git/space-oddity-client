@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { io } from '$lib/socket-client';
+	import { socket } from '$lib/socket-client';
 	import { currentStep, player } from '$lib/store';
 	import { LobbySteps, type Player } from '$lib/types';
 	import { onMount } from 'svelte';
@@ -9,16 +9,16 @@
 	let username = '';
 
 	onMount(() => {
-		io.on('UserConnected', (payload) => {
+		socket.on('UserConnected', (payload) => {
 			player.set(payload);
 		});
-		io.on('UserDisconnected', (payload) => {
+		socket.on('UserDisconnected', (payload) => {
 			player.set({} as Player);
 		});
 	});
 
 	const handleLogin = () => {
-		io.emit('UserConnect', {
+		socket.emit('UserConnect', {
 			username
 		});
 		currentStep.set(LobbySteps.GameModes);

@@ -2,7 +2,7 @@
 	import { currentStep, gameState, lobby, player } from '$lib/store';
 	import { convertSmileysToEmoji } from '$lib/utils/emoji-converter';
 	import { afterUpdate, onMount } from 'svelte';
-	import { io } from '../socket-client';
+	import { socket } from '../socket-client';
 	import { LobbySteps, type Lobby } from '../types';
 
 	export let type: 'lobby' | 'game';
@@ -35,7 +35,7 @@
 
 	const handleSendMessage = (e: Event) => {
 		e.preventDefault();
-		io.emit('SendMessage', {
+		socket.emit('SendMessage', {
 			lobbyId: $lobby.id,
 			message,
 			userId: $player.id
@@ -44,14 +44,14 @@
 	};
 
 	const handleSetReady = () => {
-		io.emit('UserReady', {
+		socket.emit('UserReady', {
 			lobbyId: $lobby.id,
 			userId: $player.id
 		});
 	};
 
 	const handleLeaveLobby = () => {
-		io.emit('LeaveLobby', {
+		socket.emit('LeaveLobby', {
 			lobbyId: $lobby.id
 		});
 		lobby.set({} as Lobby);
@@ -59,25 +59,25 @@
 	};
 
 	const handleStartGame = () => {
-		io.emit('StartGame', {
+		socket.emit('StartGame', {
 			lobbyId: $lobby.id
 		});
 	};
 
 	onMount(() => {
-		io.on('MessageSent', (payload) => {
+		socket.on('MessageSent', (payload) => {
 			lobby.set(payload);
 		});
 
-		io.on('UserReady', (payload) => {
+		socket.on('UserReady', (payload) => {
 			lobby.set(payload);
 		});
 
-		io.on('UserLeftLobby', (payload) => {
+		socket.on('UserLeftLobby', (payload) => {
 			lobby.set(payload);
 		});
 
-		io.on('GameStarted', (payload) => {
+		socket.on('GameStarted', (payload) => {
 			gameState.set(payload);
 			currentStep.set(LobbySteps.Game);
 		});
@@ -117,7 +117,7 @@
 		<div class="flex gap-x-2 pr-4">
 			<button on:click={handleLeaveLobby} class="btn w-1/3 btn-outline">Leave</button>
 			<button
-				disabled={$lobby.users.find((u) => u.id === io.id)?.isReady}
+				disabled={$lobby.users.find((u) => u.id === socket.id)?.isReady}
 				on:click={handleSetReady}
 				class={`btn w-1/3 btn-outline`}>I'm ready</button
 			>

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { io } from '../lib/socket-client';
+	import { socket } from '../lib/socket-client';
 	import { player } from '../lib/store';
 	import './page.css';
 
 	onDestroy(() => {
-		io.emit('UserDisconnect', {
+		socket.emit('UserDisconnect', {
 			userId: $player.id
 		});
 	});

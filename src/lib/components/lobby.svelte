@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { io } from '$lib/socket-client';
+	import { socket } from '$lib/socket-client';
 	import { lobby } from '$lib/store';
 	import { onMount } from 'svelte';
 	import ChatWindow from './chat-window.svelte';
@@ -7,13 +7,13 @@
 	import LogoCorner from './logo-corner.svelte';
 
 	onMount(() => {
-		io.on('UserJoinedLobby', (payload) => {
+		socket.on('UserJoinedLobby', (payload) => {
 			lobby.set(payload);
 		});
-		io.on('LobbyCreated', (payload) => {
+		socket.on('LobbyCreated', (payload) => {
 			lobby.set(payload);
 		});
-		io.on('UserLeftLobby', (payload) => {
+		socket.on('UserLeftLobby', (payload) => {
 			lobby.set(payload);
 		});
 	});

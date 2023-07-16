@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { io } from '../socket-client';
+	import { socket } from '../socket-client';
 	import { gameState } from '../store';
 	import type { Card } from '../types';
 
@@ -16,18 +16,18 @@
 
 		if (cardToPlay && cardValue && cardId) {
 			if (cardToPlay.specialEffect) {
-				const other = $gameState.lobby.users.find((u) => u.id !== io.id);
+				const other = $gameState.lobby.users.find((u) => u.id !== socket.id);
 
 				if (other) {
-					io.emit('PlayedCard', {
+					socket.emit('PlayedCard', {
 						cardId,
 						gameStateId: $gameState.id,
 						lobbyId: $gameState.lobby.id,
 						tableId: $gameState.table.id,
-						userId: io.id,
+						userId: socket.id,
 						targetUserId: other.id
 					});
-					io.emit('ChangeTurn', {
+					socket.emit('ChangeTurn', {
 						gameStateId: $gameState.id,
 						lobbyId: $gameState.lobby.id
 					});
@@ -52,14 +52,14 @@
 				src.getAttribute('data-image-value') === tgt.getAttribute('data-image-value');
 			const notTheSameCard = src.id !== tgt.id;
 			if (matchingValues && notTheSameCard) {
-				io.emit('MatchCards', {
+				socket.emit('MatchCards', {
 					card1Id: src.id,
 					card2Id: tgt.id,
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id,
-					userId: io.id
+					userId: socket.id
 				});
-				io.emit('ChangeTurn', {
+				socket.emit('ChangeTurn', {
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id
 				});
@@ -87,17 +87,21 @@
 		draggable="true"
 		on:dragstart={drag}
 		id={card.id}
-		class="relative bg-white rounded-lg"
+		class="relative bg-white rounded-lg cursor-grab"
 	>
 		<div
+			class={`absolute pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[173px] w-[125px] rounded-lg mix-blend-multiply ${
+				$gameState.light === 'red' ? 'bg-red-600' : 'bg-blue-500'
+			}`}
+		/>
+		<img
+			alt="Card"
+			src={card.graphic}
 			on:click={handlePlayCard}
 			on:keydown={(e) => {}}
 			id={card.id}
 			data-image-value={card.value}
 			class="flex justify-center text-2xl items-center h-44 w-32 rounded-lg border-[1px] border-gray-700"
-		>
-			<p class="pointer-events-none">{card.value}</p>
-			<p class="pointer-events-none">{card.specialEffect ? card.specialEffect : ''}</p>
-		</div>
+		/>
 	</div>
 </div>

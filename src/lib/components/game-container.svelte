@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { io } from '$lib/socket-client';
+	import { socket } from '$lib/socket-client';
 	import { gameState } from '$lib/store';
 	import { onMount } from 'svelte';
 	import type { Player } from '../types';
@@ -10,16 +10,16 @@
 	import Table from './table.svelte';
 
 	onMount(() => {
-		io.on('PickedCard', (payload) => {
+		socket.on('PickedCard', (payload) => {
 			gameState.set(payload);
 		});
-		io.on('CardsMatched', (payload) => {
+		socket.on('CardsMatched', (payload) => {
 			gameState.set(payload);
 		});
-		io.on('ChangeTurn', (payload) => {
+		socket.on('ChangeTurn', (payload) => {
 			gameState.set(payload);
 		});
-		io.on('PlayedCard', (payload) => {
+		socket.on('PlayedCard', (payload) => {
 			gameState.set(payload);
 		});
 	});
@@ -29,7 +29,7 @@
 
 	$: {
 		currentPlayer = $gameState.lobby.users[$gameState.currentPlayerIndex];
-		me = $gameState.lobby.users.find((u) => u.id === io.id);
+		me = $gameState.lobby.users.find((u) => u.id === socket.id);
 	}
 </script>
 
@@ -41,7 +41,7 @@
 	<Table />
 	<div class="flex flex-col gap-y-8">
 		{#each $gameState.lobby.users as user}
-			{#if user.id === io.id}
+			{#if user.id === socket.id}
 				<PlayerHand {user} />
 			{:else}
 				<OpponentHand {user} />

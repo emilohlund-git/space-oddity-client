@@ -1,19 +1,20 @@
 <script>
-	import { io } from '$lib/socket-client';
+	import { socket } from '$lib/socket-client';
 	import { gameState } from '$lib/store';
+	import CardBackLogo from './card-back-logo.svelte';
 
 	const handleDrawCard = () => {
-		if ($gameState.lobby.users[$gameState.currentPlayerIndex].id === io.id) {
-			const other = $gameState.lobby.users.find((u) => u.id !== io.id);
+		if ($gameState.lobby.users[$gameState.currentPlayerIndex].id === socket.id) {
+			const other = $gameState.lobby.users.find((u) => u.id !== socket.id);
 			if (other) {
-				io.emit('PickedCard', {
+				socket.emit('PickedCard', {
 					cardId: $gameState.lobby.users[0].hand.cards[0].id,
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id,
-					userNewId: io.id,
+					userNewId: socket.id,
 					userPreviousId: other.id
 				});
-				io.emit('ChangeTurn', {
+				socket.emit('ChangeTurn', {
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id
 				});
@@ -26,7 +27,9 @@
 	{#if $gameState.lobby.deck}
 		<button on:click={handleDrawCard} class="stack">
 			{#each $gameState.lobby.deck.cards as card}
-				<div class="h-28 w-20 bg-black rounded-md border-[1px] border-gray-700" />
+				<div class="bg-black rounded-lg">
+					<CardBackLogo />
+				</div>
 			{/each}
 		</button>
 	{/if}
