@@ -22,7 +22,7 @@
 {#if $lobby.id}
 	<div class="flex gap-x-2">
 		<LogoCorner />
-		<ChatWindow />
+		<ChatWindow type="lobby" />
 		<LobbyUsers />
 	</div>
 {/if}
