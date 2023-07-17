@@ -37,8 +37,7 @@
 	<div class="absolute bottom-0 left-0">
 		<ChatWindow type="game" />
 	</div>
-	<Deck />
-	<Table />
+
 	<div class="flex flex-col gap-y-8">
 		{#each $gameState.lobby.users as user}
 			{#if user.id === socket.id}
@@ -48,14 +47,19 @@
 			{/if}
 		{/each}
 	</div>
-	<div class="absolute top-0 left-0 flex flex-col">
+
+	<div class="absolute top-0 left-0 flex flex-col p-4 gap-2">
 		{#if me}
 			<div class="flex rounded-lg p-4 border-[1px] border-gray-700">
 				You: {me.username}
 			</div>
 		{/if}
+
 		<div class="flex rounded-lg p-4 border-[1px] border-gray-700">
 			Turn: {currentPlayer.username}'s turn
 		</div>
+
+		<Deck />
+		<Table />
 	</div>
 </div>

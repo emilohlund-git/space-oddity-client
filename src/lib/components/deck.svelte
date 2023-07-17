@@ -23,7 +23,7 @@
 	};
 </script>
 
-<div>
+<div class="flex flex-wrap gap-2">
 	{#if $gameState.lobby.deck}
 		<button on:click={handleDrawCard} class="stack">
 			{#each $gameState.lobby.deck.cards as card}
@@ -32,5 +32,6 @@
 				</div>
 			{/each}
 		</button>
+		<span><b>Cards left in Deck</b>: {$gameState.lobby.deck.cards.length}</span>
 	{/if}
 </div>

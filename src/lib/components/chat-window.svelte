@@ -124,4 +124,5 @@
 			<button on:click={handleStartGame} class="btn w-1/3 btn-outline">Start</button>
 		</div>
 	{/if}
+	🔌 {socket.id}
 </div>
