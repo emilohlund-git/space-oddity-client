@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { socket } from '$lib/socket-client';
-	import { gameState } from '$lib/store';
+	import { gameState, winner } from '$lib/store';
 	import { onMount } from 'svelte';
 	import type { Player } from '../types';
 	import ChatWindow from './chat-window.svelte';
@@ -14,13 +14,24 @@
 			gameState.set(payload);
 		});
 		socket.on('CardsMatched', (payload) => {
+			const playerWithEmptyHand = $gameState.lobby.users.find((p) => p.hand.cards.length === 0);
+
 			gameState.set(payload);
+			if (playerWithEmptyHand) {
+				socket.emit('GameOver', {
+					gameStateId: $gameState.id,
+					lobbyId: $gameState.lobby.id
+				});
+			}
 		});
 		socket.on('ChangeTurn', (payload) => {
 			gameState.set(payload);
 		});
 		socket.on('PlayedCard', (payload) => {
 			gameState.set(payload);
+		});
+		socket.on('GameEnded', (payload) => {
+			winner.set(payload);
 		});
 	});
 
@@ -37,6 +48,13 @@
 	<div class="absolute bottom-0 left-0">
 		<ChatWindow type="game" />
 	</div>
+
+	{#if $winner.username}
+		<div class="flex flex-col items-center justify-center">
+			<h1 class="text-3xl">Winner!</h1>
+			<p>{$winner.username ? $winner.username : ''}</p>
+		</div>
+	{/if}
 
 	<div class="flex flex-col gap-y-8">
 		{#each $gameState.lobby.users as user}

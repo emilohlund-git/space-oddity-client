@@ -12,7 +12,8 @@
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id,
 					userNewId: socket.id,
-					userPreviousId: other.id
+					userPreviousId: other.id,
+					fromOpponent: false
 				});
 				socket.emit('ChangeTurn', {
 					gameStateId: $gameState.id,

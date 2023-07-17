@@ -47,8 +47,10 @@
 		if (draggedCardIndex === -1 || targetCardIndex === -1) return;
 
 		if (
-			data.cardValue === targetData.cardValue &&
-			$gameState.lobby.users[$gameState.currentPlayerIndex] === user
+			(data.cardValue === targetData.cardValue &&
+				$gameState.lobby.users[$gameState.currentPlayerIndex] === user) ||
+			(data.cardValue === '21' && targetData.cardValue === '19') ||
+			(targetData.cardValue === '21' && data.cardValue === '19' && $gameState.light === 'red')
 		) {
 			socket.emit('MatchCards', {
 				card1Id: data.cardId,
@@ -90,7 +92,7 @@
 			on:dragover={handleDragOver}
 			data-image-value={item.value}
 			animate:flip={{ duration: flipDurationMs }}
-			class="transition-all hover:z-[100] hover:scale-105 w-32 group"
+			class="relative transition-all hover:z-[100] hover:scale-105 w-32 group"
 			id={item.id}
 			style={`margin-left: -40px`}
 		>

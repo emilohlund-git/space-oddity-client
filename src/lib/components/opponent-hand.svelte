@@ -7,6 +7,6 @@
 
 <div class="flex flex-wrap gap-2 justify-center items-center">
 	{#each user.hand.cards as card}
-		<CardBack id={card.id} />
+		<CardBack {card} id={card.id} />
 	{/each}
 </div>

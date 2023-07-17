@@ -39,6 +39,7 @@ export type PickedCardPayload = {
   cardId: string;
   gameStateId: string;
   lobbyId: string;
+  fromOpponent: boolean;
 };
 
 export type PlayedCardPayload = {
@@ -179,7 +180,7 @@ export type ServerEvents = {
   ChangeTurn: (gameState: GameState) => void;
   GameStarted: (gameState: GameState) => void;
   DiscardedCard: (lobbyId: string, tableId: string, cardId: string) => void;
-  GameEnded: () => void;
+  GameEnded: (winner: Player) => void;
   UserDisconnected: (user: Player) => void;
   CardsMatched: (gameState: GameState) => void;
 };

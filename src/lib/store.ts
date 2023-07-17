@@ -6,3 +6,5 @@ export const lobby = writable({} as Lobby);
 export const gameState = writable({} as GameState);
 export const messages = writable([] as Message[]);
 export const currentStep = writable(LobbySteps.MainMenu);
+export const showOpponentsHand = writable(false);
+export const winner = writable({} as Player);
