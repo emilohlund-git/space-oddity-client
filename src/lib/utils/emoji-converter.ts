@@ -9,6 +9,7 @@ function convertSmileysToEmoji(message: String) {
     ':*': '😘',
     ':\'(': '😢',
     ':O': '😧',
+    '<3': '💖'
   };
 
   const regexPattern = Object.keys(smileyMap).map(escapeRegex).join('|');
