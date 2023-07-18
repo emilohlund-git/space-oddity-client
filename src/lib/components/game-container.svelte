@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { socket } from '$lib/socket-client';
-	import { gameState, winner } from '$lib/store';
+	import { gameState, player, winner } from '$lib/store';
 	import { onMount } from 'svelte';
 	import type { Player } from '../types';
 	import ChatWindow from './chat-window.svelte';
@@ -14,7 +14,7 @@
 			gameState.set(payload);
 		});
 		socket.on('CardsMatched', (payload) => {
-			const playerWithEmptyHand = $gameState.lobby.users.find((p) => p.hand.cards.length === 0);
+			const playerWithEmptyHand = payload.lobby.users.find((p) => p.hand.cards.length === 0);
 
 			gameState.set(payload);
 			if (playerWithEmptyHand) {
@@ -37,10 +37,12 @@
 
 	let currentPlayer = {} as Player;
 	let me = {} as Player | undefined;
+	let winningPlayer = {} as Player;
 
 	$: {
 		currentPlayer = $gameState.lobby.users[$gameState.currentPlayerIndex];
-		me = $gameState.lobby.users.find((u) => u.id === socket.id);
+		me = $gameState.lobby.users.find((u) => u.id === $player.id);
+		winningPlayer = $winner;
 	}
 </script>
 
@@ -49,16 +51,16 @@
 		<ChatWindow type="game" />
 	</div>
 
-	{#if $winner.username}
+	{#if winningPlayer.id}
 		<div class="flex flex-col items-center justify-center">
 			<h1 class="text-3xl">Winner!</h1>
-			<p>{$winner.username ? $winner.username : ''}</p>
+			<p>{winningPlayer.username}</p>
 		</div>
 	{/if}
 
 	<div class="flex flex-col gap-y-8">
 		{#each $gameState.lobby.users as user}
-			{#if user.id === socket.id}
+			{#if user.id === $player.id}
 				<PlayerHand {user} />
 			{:else}
 				<OpponentHand {user} />

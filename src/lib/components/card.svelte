@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { socket } from '../socket-client';
-	import { gameState, showOpponentsHand } from '../store';
+	import { gameState, player, showOpponentsHand } from '../store';
 	import type { Card } from '../types';
 
 	export let item: Card;
@@ -15,8 +15,7 @@
 
 		if (cardToPlay && cardValue && cardId) {
 			if (cardToPlay.specialEffect !== undefined) {
-				const other = $gameState.lobby.users.find((u) => u.id !== socket.id);
-
+				const other = $gameState.lobby.users.find((u) => u.id !== $player.id);
 				if (other) {
 					if (cardToPlay.specialEffect === 0) {
 						showOpponentsHand.set(true);
@@ -25,8 +24,8 @@
 							gameStateId: $gameState.id,
 							lobbyId: $gameState.lobby.id,
 							tableId: $gameState.table.id,
-							userId: socket.id,
-							targetUserId: other.id
+							playerId: $player.id,
+							targetPlayerId: other.id
 						});
 					} else {
 						socket.emit('PlayedCard', {
@@ -34,12 +33,13 @@
 							gameStateId: $gameState.id,
 							lobbyId: $gameState.lobby.id,
 							tableId: $gameState.table.id,
-							userId: socket.id,
-							targetUserId: other.id
+							playerId: $player.id,
+							targetPlayerId: other.id
 						});
 						socket.emit('ChangeTurn', {
 							gameStateId: $gameState.id,
-							lobbyId: $gameState.lobby.id
+							lobbyId: $gameState.lobby.id,
+							playerId: $player.id
 						});
 					}
 				}

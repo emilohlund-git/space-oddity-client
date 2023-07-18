@@ -2,15 +2,18 @@ export type CardDiscardedPayload = {
   gameStateId: string;
   cardId: string;
   lobbyId: string;
-  userId: string;
+  playerId: string;
 };
 
 export type ChangeTurnPayload = {
   gameStateId: string;
   lobbyId: string;
+  playerId: string;
 };
 
-export type CreateLobbyPayload = {};
+export type CreateLobbyPayload = {
+  playerId: string;
+};
 
 export type GameOverPayload = {
   lobbyId: string,
@@ -18,15 +21,29 @@ export type GameOverPayload = {
 };
 
 export type JoinLobbyPayload = {
+  playerId: string;
   lobbyId: string;
 };
 
 export type LeaveLobbyPayload = {
+  playerId: string;
   lobbyId: string;
 };
 
+export type RetrieveGameStatePayload = {
+  gameStateId: string,
+  reconnectingPlayer: {
+    username: string;
+    id: string;
+  };
+};
+
+export type SaveGameStatePayload = {
+  gameState: GameState,
+};
+
 export type MatchCardsPayload = {
-  userId: string;
+  playerId: string;
   card1Id: string;
   card2Id: string;
   gameStateId: string;
@@ -34,8 +51,8 @@ export type MatchCardsPayload = {
 };
 
 export type PickedCardPayload = {
-  userPreviousId: string;
-  userNewId: string;
+  playerPreviousId: string;
+  playerNewId: string;
   cardId: string;
   gameStateId: string;
   lobbyId: string;
@@ -43,8 +60,8 @@ export type PickedCardPayload = {
 };
 
 export type PlayedCardPayload = {
-  userId: string;
-  targetUserId?: string;
+  playerId: string;
+  targetPlayerId?: string;
   cardId: string;
   tableId: string;
   lobbyId: string;
@@ -52,7 +69,7 @@ export type PlayedCardPayload = {
 };
 
 export type SendMessagePayload = {
-  userId: string;
+  playerId: string;
   lobbyId: string;
   message: string;
 };
@@ -63,16 +80,17 @@ export type StartGamePayload = {
 
 export type UserConnectPayload = {
   username: string;
+  lobbyId?: string;
 };
 
 export type UserDisconnectPayload = {
-  userId: string;
+  playerId: string;
   lobbyId?: string;
   gameStateId?: string;
 };
 
 export type UserReadyPayload = {
-  userId: string;
+  playerId: string;
   lobbyId: string;
 };
 
@@ -153,7 +171,7 @@ export type Message = {
 
 export type ClientEvents = {
   UserConnect: (payload: UserConnectPayload) => void;
-  CreateLobby: () => void;
+  CreateLobby: (payload: CreateLobbyPayload) => void;
   JoinLobby: (payload: JoinLobbyPayload) => void;
   LeaveLobby: (payload: LeaveLobbyPayload) => void;
   SendMessage: (payload: SendMessagePayload) => void;
@@ -166,6 +184,8 @@ export type ClientEvents = {
   GameOver: (payload: GameOverPayload) => void;
   UserDisconnect: (payload: UserDisconnectPayload) => void;
   MatchCards: (payload: MatchCardsPayload) => void;
+  RetrieveGameState: (payload: RetrieveGameStatePayload) => void;
+  SaveGameState: (payload: SaveGameStatePayload) => void;
 };
 
 export type ServerEvents = {
@@ -183,6 +203,11 @@ export type ServerEvents = {
   GameEnded: (winner: Player) => void;
   UserDisconnected: (user: Player) => void;
   CardsMatched: (gameState: GameState) => void;
+  GameStateRetrieved: (payload: {
+    gameState: GameState;
+    player: Player;
+  }) => void;
+  GameStateSaved: () => void;
 };
 
 export enum LobbySteps {

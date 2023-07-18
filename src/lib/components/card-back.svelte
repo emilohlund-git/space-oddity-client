@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { socket } from '../socket-client';
-	import { gameState, showOpponentsHand } from '../store';
+	import { gameState, player, showOpponentsHand } from '../store';
 	import type { Card } from '../types';
 	import CardBackLogo from './card-back-logo.svelte';
 
@@ -10,23 +10,24 @@
 	const handleDrawCard = (e: any) => {
 		const cardId = e.target.attributes.id.value;
 		if (
-			($gameState.lobby.users[$gameState.currentPlayerIndex].id === socket.id &&
+			($gameState.lobby.users[$gameState.currentPlayerIndex].id === $player.id &&
 				$gameState.lobby.deck?.cards.length === 0) ||
 			$showOpponentsHand
 		) {
-			const other = $gameState.lobby.users.find((u) => u.id !== socket.id);
+			const other = $gameState.lobby.users.find((u) => u.id !== $player.id);
 			if (other) {
 				socket.emit('PickedCard', {
 					cardId,
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id,
-					userNewId: socket.id,
-					userPreviousId: other.id,
+					playerNewId: $player.id,
+					playerPreviousId: other.id,
 					fromOpponent: $showOpponentsHand
 				});
 				socket.emit('ChangeTurn', {
 					gameStateId: $gameState.id,
-					lobbyId: $gameState.lobby.id
+					lobbyId: $gameState.lobby.id,
+					playerId: $player.id
 				});
 			}
 

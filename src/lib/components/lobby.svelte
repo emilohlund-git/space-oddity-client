@@ -3,6 +3,7 @@
 	import { lobby } from '$lib/store';
 	import { onMount } from 'svelte';
 	import ChatWindow from './chat-window.svelte';
+	import Loader from './loader.svelte';
 	import LobbyUsers from './lobby-users.svelte';
 	import LogoCorner from './logo-corner.svelte';
 
@@ -25,4 +26,6 @@
 		<ChatWindow type="lobby" />
 		<LobbyUsers />
 	</div>
+{:else}
+	<Loader />
 {/if}

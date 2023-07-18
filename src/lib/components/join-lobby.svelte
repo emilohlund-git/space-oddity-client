@@ -21,6 +21,7 @@
 
 	const handleJoinLobby = () => {
 		socket.emit('JoinLobby', {
+			playerId: $player.id,
 			lobbyId
 		});
 		currentStep.set(LobbySteps.Lobby);

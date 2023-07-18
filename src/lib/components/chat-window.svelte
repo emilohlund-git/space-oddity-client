@@ -38,7 +38,7 @@
 		socket.emit('SendMessage', {
 			lobbyId: $lobby.id,
 			message,
-			userId: $player.id
+			playerId: $player.id
 		});
 		message = '';
 	};
@@ -46,12 +46,13 @@
 	const handleSetReady = () => {
 		socket.emit('UserReady', {
 			lobbyId: $lobby.id,
-			userId: $player.id
+			playerId: $player.id
 		});
 	};
 
 	const handleLeaveLobby = () => {
 		socket.emit('LeaveLobby', {
+			playerId: $player.id,
 			lobbyId: $lobby.id
 		});
 		lobby.set({} as Lobby);
@@ -117,12 +118,12 @@
 		<div class="flex gap-x-2 pr-4">
 			<button on:click={handleLeaveLobby} class="btn w-1/3 btn-outline">Leave</button>
 			<button
-				disabled={$lobby.users.find((u) => u.id === socket.id)?.isReady}
+				disabled={$lobby.users.find((u) => u.id === $player.id)?.isReady}
 				on:click={handleSetReady}
 				class={`btn w-1/3 btn-outline`}>I'm ready</button
 			>
 			<button on:click={handleStartGame} class="btn w-1/3 btn-outline">Start</button>
 		</div>
 	{/if}
-	🔌 {socket.id}
+	🔌 {socket.id} - {$player.id}
 </div>

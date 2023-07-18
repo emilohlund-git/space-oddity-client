@@ -57,11 +57,12 @@
 				card2Id: targetData.cardId,
 				gameStateId: $gameState.id,
 				lobbyId: $gameState.lobby.id,
-				userId: socket.id
+				playerId: $player.id
 			});
 			socket.emit('ChangeTurn', {
 				gameStateId: $gameState.id,
-				lobbyId: $gameState.lobby.id
+				lobbyId: $gameState.lobby.id,
+				playerId: $player.id
 			});
 
 			return;
