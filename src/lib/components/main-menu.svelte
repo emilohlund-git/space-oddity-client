@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { currentStep } from '$lib/store';
 	import { LobbySteps } from '$lib/types';
 	import Button from './common/button.svelte';
@@ -8,7 +9,9 @@
 		currentStep.set(LobbySteps.Login);
 	}
 
-	function redirectToInstructions() {}
+	function redirectToInstructions() {
+		goto('/instructions');
+	}
 
 	function redirectToSettings() {}
 </script>
