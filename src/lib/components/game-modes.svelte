@@ -2,6 +2,7 @@
 	import { socket } from '$lib/socket-client';
 	import { currentStep, player } from '$lib/store';
 	import { LobbySteps } from '../types';
+	import Button from './common/button.svelte';
 	import Logo from './logo.svelte';
 
 	const handleCreateLobby = () => {
@@ -10,14 +11,15 @@
 		});
 		currentStep.set(LobbySteps.Lobby);
 	};
+
+	function redirectToJoinLobby() {
+		currentStep.set(LobbySteps.JoinLobby);
+	}
 </script>
 
 <Logo />
-<div class="flex flex-col gap-y-2">
-	<button class="btn btn-wide btn-outline">Quick game</button>
-	<button on:click={() => currentStep.set(LobbySteps.JoinLobby)} class="btn btn-wide btn-outline"
-		>Lobby Game</button
-	>
-	<button on:click={handleCreateLobby} class="btn btn-wide btn-outline">Create Lobby</button>
-	<button class="btn btn-wide btn-outline">Logout</button>
+<div class="flex flex-col gap-y-2 w-[20rem]">
+	<Button type="button" text="Join Lobby" onClick={redirectToJoinLobby} />
+	<Button type="button" text="Create Lobby" onClick={handleCreateLobby} />
+	<Button type="button" text="Logout" onClick={() => {}} />
 </div>

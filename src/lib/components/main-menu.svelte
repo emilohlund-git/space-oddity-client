@@ -1,14 +1,21 @@
 <script>
 	import { currentStep } from '$lib/store';
 	import { LobbySteps } from '$lib/types';
+	import Button from './common/button.svelte';
 	import Logo from './logo.svelte';
+
+	function redirectToLogin() {
+		currentStep.set(LobbySteps.Login);
+	}
+
+	function redirectToInstructions() {}
+
+	function redirectToSettings() {}
 </script>
 
 <Logo />
-<div class="flex flex-col gap-y-2">
-	<button on:click={() => currentStep.set(LobbySteps.Login)} class="btn btn-outline btn-wide"
-		>Join Game</button
-	>
-	<button class="btn btn-outline btn-wide">Instructions</button>
-	<button class="btn btn-outline btn-wide">Settings</button>
+<div class="flex flex-col gap-y-2 w-[20rem]">
+	<Button type="button" text="Login" onClick={redirectToLogin} />
+	<Button type="button" text="Instructions" onClick={redirectToInstructions} />
+	<Button type="button" text="Settings" onClick={redirectToSettings} />
 </div>

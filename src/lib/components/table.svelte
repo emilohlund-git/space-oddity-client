@@ -2,7 +2,7 @@
 	import { gameState } from '$lib/store';
 </script>
 
-<div class="flex flex-wrap w-72 h-96 overflow-y-scroll gap-2">
+<div class="flex flex-wrap w-72 max-h-80 overflow-y-scroll gap-2 mt-12">
 	{#each $gameState.table.disposedCards as card}
 		<div class="relative">
 			<div class="absolute h-28 w-20 top-0 left-0 mix-blend-multiply bg-red-600 z-50 rounded-lg" />

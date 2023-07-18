@@ -3,6 +3,7 @@
 	import { currentStep, lobby, player } from '$lib/store';
 	import { onMount } from 'svelte';
 	import { LobbySteps } from '../types';
+	import Button from './common/button.svelte';
 	import Logo from './logo.svelte';
 
 	let lobbyId = '';
@@ -29,18 +30,19 @@
 </script>
 
 <Logo />
-<div class="flex flex-col gap-y-2">
+<div class="flex flex-col gap-y-2 w-[20rem]">
 	{#if $player.id}
-		<label for="username">Lobby ID</label>
-		<input
-			name="username"
-			bind:value={lobbyId}
-			class="input w-64 input-bordered join-item"
-			placeholder="Lobby ID"
-		/>
-		<button on:click={handleJoinLobby} class="btn btn-wide btn-outline">Join</button>
-		<button on:click={() => currentStep.set(LobbySteps.GameModes)} class="btn btn-wide btn-outline"
-			>Return</button
-		>
+		<form class="flex flex-col gap-y-2" on:submit={handleJoinLobby}>
+			<label for="lobby-id">Lobby ID</label>
+			<input
+				name="lobby-id"
+				bind:value={lobbyId}
+				class="input w-full rounded-none bg-transparent h-[3.5rem] border-gray-500 border-opacity-20 join-item"
+				placeholder={'Lobby ID'}
+				required
+			/>
+			<Button type="submit" onClick={() => {}} text="Join" />
+		</form>
+		<Button type="button" onClick={() => currentStep.set(LobbySteps.GameModes)} text="Return" />
 	{/if}
 </div>

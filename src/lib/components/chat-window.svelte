@@ -4,6 +4,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { socket } from '../socket-client';
 	import { LobbySteps, type Lobby } from '../types';
+	import Button from './common/button.svelte';
 
 	export let type: 'lobby' | 'game';
 
@@ -91,7 +92,7 @@
 	{/if}
 	<div
 		bind:this={containerRef}
-		class={`rounded-lg border-[1px] border-gray-700 p-4 ${
+		class={`border-[1px] border-gray-700 border-opacity-20 p-4 ${
 			type === 'lobby' ? 'h-[25rem]' : 'h-[10rem]'
 		} w-[30rem] flex flex-col gap-2 overflow-y-scroll`}
 	>
@@ -105,25 +106,26 @@
 			</div>
 		{/each}
 	</div>
-	<form on:submit={handleSendMessage} class="flex gap-x-2 w-full">
+	<form on:submit={handleSendMessage} class="grid grid-flow-col gap-x-2">
 		<input
-			required
+			name="nessage"
 			bind:value={message}
-			class="input input-bordered w-full"
-			placeHolder="Message"
+			class="input w-full rounded-none bg-transparent h-[3.5rem] border-gray-500 border-opacity-20 join-item"
+			placeholder={'Message'}
+			required
 		/>
-		<button type="submit" class="btn btn-outline">send</button>
+		<Button type="submit" onClick={() => {}} text="Send" />
 	</form>
 	{#if type === 'lobby'}
-		<div class="flex gap-x-2 pr-4">
-			<button on:click={handleLeaveLobby} class="btn w-1/3 btn-outline">Leave</button>
-			<button
+		<div class="flex gap-x-2">
+			<Button type="button" onClick={handleLeaveLobby} text="Leave" />
+			<Button
+				type="button"
 				disabled={$lobby.users.find((u) => u.id === $player.id)?.isReady}
-				on:click={handleSetReady}
-				class={`btn w-1/3 btn-outline`}>I'm ready</button
-			>
-			<button on:click={handleStartGame} class="btn w-1/3 btn-outline">Start</button>
+				onClick={handleSetReady}
+				text="I'm ready"
+			/>
+			<Button type="button" onClick={handleStartGame} text="Start" />
 		</div>
 	{/if}
-	🔌 {socket.id} - {$player.id}
 </div>

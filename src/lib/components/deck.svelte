@@ -6,8 +6,6 @@
 	const handleDrawCard = () => {
 		if ($gameState.lobby.users[$gameState.currentPlayerIndex].id === $player.id) {
 			const other = $gameState.lobby.users.find((u) => u.id !== $player.id);
-			console.log(other);
-			console.log($gameState.lobby);
 			if (other) {
 				socket.emit('PickedCard', {
 					cardId: $gameState.lobby.users[0].hand.cards[0].id,
