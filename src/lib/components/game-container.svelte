@@ -66,8 +66,8 @@
 			<ChatWindow type="game" />
 		</div>
 	</div>
-	<div class="flex flex-col items-center justify-center px-40 w-full">
-		<div class="flex flex-col gap-y-8">
+	<div class="flex flex-col justify-between px-40 w-full h-full">
+		<div class="flex flex-col gap-y-8 items-center justify-center h-full">
 			{#each $gameState.lobby.users as user}
 				{#if user.id === $player.id}
 					<PlayerHand {user} />

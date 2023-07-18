@@ -2,6 +2,9 @@
 </script>
 
 <div class="w-1/2 flex text-lg flex-col items-center gap-y-4">
+	<div class="flex flex-col">
+		<p class="text-red-600 font-bold">Game Components</p>
+	</div>
 	<p class="text-[#00BAFF] mb-4 text-2xl font-bold">20 double exposure pairs (examples below)</p>
 	<div class="flex gap-x-2">
 		<div

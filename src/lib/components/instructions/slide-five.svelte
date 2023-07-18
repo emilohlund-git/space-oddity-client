@@ -2,10 +2,7 @@
 </script>
 
 <div class="w-1/2 flex text-lg flex-col items-center gap-y-8 text-white">
-	<div class="flex flex-col">
-		<p class="text-red-600 font-bold">- 2nd phase</p>
-		<p class="text-white">Each player matches, then discards their pairs of the same element</p>
-	</div>
+	<p class="text-red-600 font-bold text-center">Matching cards</p>
 	<div class="flex gap-x-2">
 		<div class="flex flex-col gap-y-4">
 			<p class="text-center font-bold text-xl">Yes</p>

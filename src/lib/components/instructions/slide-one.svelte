@@ -1,9 +1,9 @@
 <div class="w-1/2 flex text-lg flex-col items-center gap-y-4 text-white">
 	<h1 class="text-5xl font-[AlienLeagueGradientBold] text-red-500">Instructions</h1>
 	<p>
-		I invite you to discover the space oddity rules. A very simple and ideal card game to have a
-		good time with friends in a relaxed and spacey atmosphere. To win this game, all you have to do
-		is run out of cards at the end of the game, so there can be several winners, but only one loser.
+		I invite you to discover the Space Oddity rules, a very simple and enjoyable card game to play
+		with friends in a relaxed and spacey atmosphere. The objective of the game is to run out of
+		cards at the end, so there can be multiple winners, but only one loser.
 	</p>
 	<p>
 		we're not going to lie to each other, no one wants to get sucked into a black hole and lose,

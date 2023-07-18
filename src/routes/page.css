@@ -31,12 +31,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: rgb(20, 26, 36);
+	background: rgb(0, 0, 0);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgb(43, 55, 77);
+	background: rgb(15, 15, 15);
 }
 
 /* Handle on hover */

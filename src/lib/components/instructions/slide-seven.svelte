@@ -2,7 +2,7 @@
 </script>
 
 <div class="w-1/2 flex text-lg flex-col items-left text-white gap-y-4">
-	<p class="text-red-600 font-bold">- Extension to the game instructions:</p>
+	<p class="text-red-600 font-bold text-center">Extension to the game instructions:</p>
 	<p>
 		The -Space Oddity- being a game of chance, there's not any particular technique to increase your
 		chances of winning. On the other hand, players with the 'Black Hole' card often have fun
