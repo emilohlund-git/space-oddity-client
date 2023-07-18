@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { currentStep, gameState, lobby, player } from '$lib/store';
+	import { currentStep, gameState, lobby, messages, player } from '$lib/store';
 	import { convertSmileysToEmoji } from '$lib/utils/emoji-converter';
 	import { afterUpdate, onMount } from 'svelte';
 	import { socket } from '../socket-client';
 	import { LobbySteps, type Lobby } from '../types';
 	import Button from './common/button.svelte';
+	import Message from './message.svelte';
 
 	export let type: 'lobby' | 'game';
 
@@ -83,6 +84,10 @@
 			gameState.set(payload);
 			currentStep.set(LobbySteps.Game);
 		});
+
+		socket.on('error', (payload) => {
+			messages.update((messages) => [...messages, payload]);
+		});
 	});
 </script>
 
@@ -97,13 +102,7 @@
 		} w-[30rem] flex flex-col gap-2 overflow-y-scroll`}
 	>
 		{#each $lobby.messages as message}
-			<div class="flex gap-x-2 items-center">
-				<p class="font-bold">
-					{$lobby.host.id === message.player.id ? '🌟' : ''}
-					{message.player.username}:
-				</p>
-				<p>{convertSmileysToEmoji(message.content)}</p>
-			</div>
+			<Message {message} />
 		{/each}
 	</div>
 	<form on:submit={handleSendMessage} class="grid grid-flow-col gap-x-2">

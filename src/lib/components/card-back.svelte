@@ -1,14 +1,35 @@
 <script lang="ts">
 	import { socket } from '../socket-client';
-	import { gameState, player, showOpponentsHand } from '../store';
+	import { chooseOpponentHand, gameState, playedCardId, player, showOpponentsHand } from '../store';
 	import type { Card } from '../types';
 	import CardBackLogo from './card-back-logo.svelte';
 
 	export let id: string;
 	export let card: Card;
+	export let userId: string;
 
 	const handleDrawCard = (e: any) => {
 		const cardId = e.target.attributes.id.value;
+
+		if ($chooseOpponentHand) {
+			let chosenOpponentId = e.target.attributes['data-user-id'].value;
+			socket.emit('PlayedCard', {
+				cardId: $playedCardId,
+				gameStateId: $gameState.id,
+				lobbyId: $gameState.lobby.id,
+				tableId: $gameState.table.id,
+				playerId: $player.id,
+				targetPlayerId: chosenOpponentId
+			});
+			socket.emit('ChangeTurn', {
+				gameStateId: $gameState.id,
+				lobbyId: $gameState.lobby.id,
+				playerId: $player.id
+			});
+			chooseOpponentHand.set(false);
+			return;
+		}
+
 		if (
 			($gameState.lobby.users[$gameState.currentPlayerIndex].id === $player.id &&
 				$gameState.lobby.deck?.cards.length === 0) ||
@@ -21,7 +42,7 @@
 					gameStateId: $gameState.id,
 					lobbyId: $gameState.lobby.id,
 					playerNewId: $player.id,
-					playerPreviousId: other.id,
+					playerPreviousId: userId,
 					fromOpponent: $showOpponentsHand
 				});
 				socket.emit('ChangeTurn', {
@@ -43,6 +64,7 @@
 		on:click={handleDrawCard}
 		on:keydown={() => {}}
 		{id}
+		data-user-id={userId}
 		class="relative bg-black rounded-lg z-0"
 	>
 		{#if $showOpponentsHand}

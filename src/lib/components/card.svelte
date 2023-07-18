@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { socket } from '../socket-client';
-	import { gameState, player, showOpponentsHand } from '../store';
-	import type { Card } from '../types';
+	import { chooseOpponentHand, gameState, playedCardId, player, showOpponentsHand } from '../store';
+	import { SpecialEffect, type Card } from '../types';
 
 	export let item: Card;
 
@@ -17,6 +17,11 @@
 			if (cardToPlay.specialEffect !== undefined) {
 				const other = $gameState.lobby.users.find((u) => u.id !== $player.id);
 				if (other) {
+					if (cardToPlay.specialEffect === SpecialEffect.SwapHand) {
+						chooseOpponentHand.set(true);
+						playedCardId.set(cardId);
+						return;
+					}
 					if (cardToPlay.specialEffect === 0) {
 						showOpponentsHand.set(true);
 						socket.emit('PlayedCard', {
@@ -50,7 +55,7 @@
 
 <div
 	class={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10rem] w-[7rem] rounded-lg mix-blend-multiply ${
-		$gameState.light === 'red' ? 'bg-red-500' : 'bg-blue-500'
+		$gameState.light === 'red' ? 'bg-red-500' : 'bg-[rgb(0,163,210)]'
 	}`}
 />
 <div

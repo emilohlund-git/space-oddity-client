@@ -94,6 +94,8 @@ export type UserReadyPayload = {
   lobbyId: string;
 };
 
+export type PingPayload = {};
+
 export enum CardType {
   Regular,
   Twisted,
@@ -186,6 +188,7 @@ export type ClientEvents = {
   MatchCards: (payload: MatchCardsPayload) => void;
   RetrieveGameState: (payload: RetrieveGameStatePayload) => void;
   SaveGameState: (payload: SaveGameStatePayload) => void;
+  Ping: () => void;
 };
 
 export type ServerEvents = {
@@ -208,6 +211,8 @@ export type ServerEvents = {
     player: Player;
   }) => void;
   GameStateSaved: () => void;
+  Pong: () => void;
+  error: (payload: any) => void;
 };
 
 export enum LobbySteps {

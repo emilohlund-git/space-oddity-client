@@ -9,3 +9,5 @@ export const disconnected = writable(false);
 export const currentStep = writable(LobbySteps.MainMenu);
 export const showOpponentsHand = writable(false);
 export const winner = writable({} as Player);
+export const chooseOpponentHand = writable(false);
+export const playedCardId = writable(undefined as string | undefined);

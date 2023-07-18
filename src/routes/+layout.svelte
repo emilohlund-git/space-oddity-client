@@ -1,16 +1,12 @@
 <script lang="ts">
-	import { socket } from '../lib/socket-client';
-	import { player } from '../lib/store';
-	import './page.css';
+	import Diagnostics from '../lib/components/common/diagnostics.svelte';
 </script>
 
 <main
 	class="page flex flex-col justify-center items-center h-screen w-full gap-y-8 font-[AlienLeague]"
 >
 	<slot />
-	<div class="absolute bottom-2 right-2">
-		🔌 {socket.id} - {$player.id}
-	</div>
+	<Diagnostics />
 </main>
 
 <style>
