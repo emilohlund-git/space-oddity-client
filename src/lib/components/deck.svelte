@@ -25,15 +25,20 @@
 	};
 </script>
 
-<div class="flex flex-wrap gap-2">
+<div class="flex flex-col flex-wrap gap-6">
 	{#if $gameState.lobby.deck}
-		<button on:click={handleDrawCard} class="stack">
+		<button on:click={handleDrawCard} class="stack max-w-fit">
 			{#each $gameState.lobby.deck.cards as card}
 				<div class="bg-black rounded-lg">
 					<CardBackLogo />
 				</div>
 			{/each}
 		</button>
-		<span><b>Cards left in Deck</b>: {$gameState.lobby.deck.cards.length}</span>
+		<span
+			><b>Cards left in Deck</b>:
+			<span class="countdown">
+				<span style={`--value: ${$gameState.lobby.deck.cards.length}`} />
+			</span>
+		</span>
 	{/if}
 </div>

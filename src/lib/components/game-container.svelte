@@ -49,15 +49,21 @@
 <div class="flex items-center px-2 py-4 justify-start w-full h-full">
 	<div class="flex flex-col justify-between gap-y-8 self-end h-full">
 		<div>
-			{#if me}
-				<div class="flex p-4 border-[1px] border-gray-700 border-opacity-20">
-					You: {me.username}
+			{#if !$winner.username}
+				{#if me}
+					<div class="flex p-4 border-[1px] border-gray-700 border-opacity-20">
+						You: <span class="font-bold">{me.username}</span>
+					</div>
+				{/if}
+
+				<div class="flex p-4 border-[1px] text-lg border-gray-700 border-opacity-20">
+					Turn: <span class="font-bold">{currentPlayer.username}</span>'s turn
+				</div>
+
+				<div class="flex p-4 border-[1px] text-lg border-gray-700 border-opacity-20">
+					⭐ Winner: <span class="font-bold">{$winner.username}</span>
 				</div>
 			{/if}
-
-			<div class="flex p-4 border-[1px] border-gray-700 border-opacity-20">
-				Turn: {currentPlayer.username}'s turn
-			</div>
 		</div>
 
 		<div class="flex flex-col self-end">
