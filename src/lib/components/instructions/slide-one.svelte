@@ -1,5 +1,5 @@
 <div class="w-1/2 flex text-lg flex-col items-center gap-y-4 text-white">
-	<h1 class="text-5xl font-[AlienLeagueGradientBold] text-red-500">Instructions</h1>
+	<h1 class="text-5xl font-alien-league-gradient-bold text-red-500">Instructions</h1>
 	<p>
 		I invite you to discover the Space Oddity rules, a very simple and enjoyable card game to play
 		with friends in a relaxed and spacey atmosphere. The objective of the game is to run out of

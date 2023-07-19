@@ -3,7 +3,7 @@
 </script>
 
 <main
-	class="page flex flex-col justify-center items-center h-screen w-full gap-y-8 font-[AlienLeague]"
+	class="page flex flex-col justify-center items-center h-screen w-full gap-y-8 font-alien-league"
 >
 	<slot />
 	<Diagnostics />
