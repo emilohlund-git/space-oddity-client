@@ -59,6 +59,13 @@
 	}`}
 />
 <div
+	class={`${$gameState.light === 'red' && item.specialEffect ? 'ring-red-500' : ''} ${
+		$gameState.light === 'blue' && item.specialEffect ? 'ring-blue-500' : ''
+	} ${$gameState.light === 'red' && !item.specialEffect ? 'ring-red-700' : ''} ${
+		$gameState.light === 'blue' && !item.specialEffect ? 'ring-blue-700' : ''
+	} absolute top-1/2 rounded-lg ring-4 pointer-events-none left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full border-[1px]`}
+/>
+<div
 	style={`background-image: url(${item.graphic}); background-position: center; background-size: contain`}
 	on:click={handlePlayCard}
 	on:keydown={(e) => {}}
