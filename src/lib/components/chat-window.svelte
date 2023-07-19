@@ -113,7 +113,7 @@
 			placeholder={'Message'}
 			required
 		/>
-		<Button reversed={true} type="submit" onClick={() => {}} text="Send" />
+		<Button type="submit" onClick={() => {}} text="Send" />
 	</form>
 	{#if type === 'lobby'}
 		<div class="flex gap-x-2">
