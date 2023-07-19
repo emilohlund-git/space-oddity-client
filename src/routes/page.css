@@ -2,26 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	@font-face {
-		font-family: 'AlienLeague';
-		src: local('AlienLeague'), url('/fonts/alienleague.ttf') format('truetype');
-	}
+@font-face {
+	font-family: 'alienleague';
+	src: local('AlienLeague'), url('/fonts/alienleague.ttf') format('truetype');
+}
 
-	@font-face {
-		font-family: 'AlienLeagueBold';
-		src: local('AlienLeagueBold'), url('/fonts/alienleaguebold.ttf') format('ttf');
-	}
+@font-face {
+	font-family: 'alienleaguebold';
+	src: local('AlienLeagueBold'), url('/fonts/alienleaguebold.ttf') format('ttf');
+}
 
-	@font-face {
-		font-family: 'AlienLeagueGradient';
-		src: local('AlienLeagueGradient'), url('/fonts/alienleaguegrad.ttf') format('ttf');
-	}
+@font-face {
+	font-family: 'alienleaguegrad';
+	src: local('AlienLeagueGradient'), url('/fonts/alienleaguegrad.ttf') format('ttf');
+}
 
-	@font-face {
-		font-family: 'AlienLeagueGradientBold';
-		src: local('AlienLeagueGradientBold'), url('/fonts/alienleaguegradbold.ttf') format('ttf');
-	}
+@font-face {
+	font-family: 'alienleaguegradbold';
+	src: local('AlienLeagueGradientBold'), url('/fonts/alienleaguegradbold.ttf') format('ttf');
 }
 
 /* width */
