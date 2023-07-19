@@ -59,7 +59,7 @@
 	};
 </script>
 
-<div class="transition-all hover:z-[100] hover:scale-110" style="margin-left: -60px">
+<div class="transition-all hover:z-[100] hover:scale-110">
 	<div
 		on:click={handleDrawCard}
 		on:keydown={() => {}}

@@ -34,11 +34,5 @@
 				</div>
 			{/each}
 		</button>
-		<span
-			><b>Cards left in Deck</b>:
-			<span class="countdown">
-				<span style={`--value: ${$gameState.lobby.deck.cards.length}`} />
-			</span>
-		</span>
 	{/if}
 </div>

@@ -47,19 +47,13 @@
 		if (draggedCardIndex === -1 || targetCardIndex === -1) return;
 
 		if (
-			(data.cardValue === targetData.cardValue &&
-				$gameState.lobby.users[$gameState.currentPlayerIndex] === user) ||
+			data.cardValue === targetData.cardValue ||
 			(data.cardValue === '21' && targetData.cardValue === '19') ||
 			(targetData.cardValue === '21' && data.cardValue === '19' && $gameState.light === 'red')
 		) {
 			socket.emit('MatchCards', {
 				card1Id: data.cardId,
 				card2Id: targetData.cardId,
-				gameStateId: $gameState.id,
-				lobbyId: $gameState.lobby.id,
-				playerId: $player.id
-			});
-			socket.emit('ChangeTurn', {
 				gameStateId: $gameState.id,
 				lobbyId: $gameState.lobby.id,
 				playerId: $player.id
@@ -95,7 +89,6 @@
 			animate:flip={{ duration: flipDurationMs }}
 			class="relative transition-all hover:z-[100] hover:scale-105 w-32 group"
 			id={item.id}
-			style={`margin-left: -40px`}
 		>
 			<Card {item} />
 		</div>
