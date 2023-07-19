@@ -8,6 +8,7 @@
 	import OpponentHand from './opponent-hand.svelte';
 	import PlayerHand from './player-hand.svelte';
 	import Table from './table.svelte';
+	import WinnerOverlay from './winner-overlay.svelte';
 
 	onMount(() => {
 		socket.on('PickedCard', (payload) => {
@@ -47,6 +48,7 @@
 	}
 </script>
 
+<WinnerOverlay />
 <div class="flex items-center px-2 py-4 justify-start w-full h-full">
 	<div class="absolute right-40 top-1/2 -translate-y-1/2">
 		<p class="text-xl font-bold">Cards in deck</p>
