@@ -113,7 +113,7 @@
 			placeholder={'Message'}
 			required
 		/>
-		<Button type="submit" onClick={() => {}} text="Send" />
+		<Button reversed={true} type="submit" onClick={() => {}} text="Send" />
 	</form>
 	{#if type === 'lobby'}
 		<div class="flex gap-x-2">
@@ -124,7 +124,12 @@
 				onClick={handleSetReady}
 				text="I'm ready"
 			/>
-			<Button type="button" onClick={handleStartGame} text="Start" />
+			<Button
+				disabled={$lobby.users.some((player) => !player.isReady)}
+				type="button"
+				onClick={handleStartGame}
+				text="Start"
+			/>
 		</div>
 	{/if}
 </div>

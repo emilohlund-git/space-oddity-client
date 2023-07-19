@@ -10,7 +10,7 @@
 	{type}
 	{disabled}
 	on:click={onClick}
-	class="relative border-[1px] border-gray-500 border-opacity-20 h-[3.5rem] px-10 w-full group overflow-hidden"
+	class="relative border-[1px] disabled:bg-gray-900 border-gray-500 border-opacity-20 h-[3.5rem] px-4 w-full group overflow-hidden"
 >
 	{#if !disabled}
 		<div
@@ -28,5 +28,10 @@
 			}`}
 		/>
 	{/if}
-	<span class="group-hover:text-white transition-colors">{text}</span>
+	<span class="group-hover:text-white transition-colors">
+		{#if disabled}
+			🔒
+		{/if}
+		{text}</span
+	>
 </button>
