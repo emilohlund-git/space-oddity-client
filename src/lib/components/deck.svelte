@@ -24,13 +24,10 @@
 	};
 </script>
 
-<div class="flex flex-col flex-wrap gap-6">
+<div class="flex flex-col items-start flex-wrap gap-6">
 	{#if $gameState.lobby.deck}
-		<button
-			class="btn btn-circle btn-lg ring-4 bg-gradient-to-tr from-blue-500 to-blue-700"
-			on:click={handleDrawCard}
-		>
-			<span class="countdown font-alien-league text-3xl">
+		<button class="" on:click={handleDrawCard}>
+			<span class="countdown font-mono text-6xl">
 				<span style={`--value: ${$gameState.lobby.deck.cards.length}`} />
 			</span>
 		</button>
