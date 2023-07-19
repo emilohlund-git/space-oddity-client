@@ -56,13 +56,13 @@
 		<p class="text-xl font-bold">{currentPlayer.username}'s turn</p>
 		<Timer />
 	</div>
+	<Table />
 	<div class="flex flex-col gap-y-8 items-center justify-between h-full w-full">
 		{#each $gameState.lobby.users as user}
 			{#if user.id === $player.id}
 				<PlayerHand {user} />
 			{:else}
 				<OpponentHand {user} />
-				<Table />
 			{/if}
 		{/each}
 	</div>

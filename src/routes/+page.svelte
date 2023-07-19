@@ -35,6 +35,7 @@
 		socket.on('GameStateRetrieved', (payload) => {
 			const { gameState: _g, player: _p } = payload;
 			gameState.set(_g);
+			player.set(_p);
 		});
 	});
 </script>
