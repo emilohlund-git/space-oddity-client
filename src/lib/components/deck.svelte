@@ -1,7 +1,6 @@
 <script>
 	import { socket } from '$lib/socket-client';
 	import { gameState, player } from '$lib/store';
-	import CardBackLogo from './card-back-logo.svelte';
 
 	const handleDrawCard = () => {
 		if ($gameState.lobby.users[$gameState.currentPlayerIndex].id === $player.id) {
@@ -27,12 +26,13 @@
 
 <div class="flex flex-col flex-wrap gap-6">
 	{#if $gameState.lobby.deck}
-		<button on:click={handleDrawCard} class="stack max-w-fit">
-			{#each $gameState.lobby.deck.cards as card}
-				<div class="bg-black rounded-lg">
-					<CardBackLogo />
-				</div>
-			{/each}
+		<button
+			class="btn btn-circle btn-lg ring-4 bg-gradient-to-tr from-blue-500 to-blue-700"
+			on:click={handleDrawCard}
+		>
+			<span class="countdown font-alien-league text-3xl">
+				<span style={`--value: ${$gameState.lobby.deck.cards.length}`} />
+			</span>
 		</button>
 	{/if}
 </div>

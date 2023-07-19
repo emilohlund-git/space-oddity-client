@@ -11,3 +11,4 @@ export const showOpponentsHand = writable(false);
 export const winner = writable({} as Player);
 export const chooseOpponentHand = writable(false);
 export const playedCardId = writable(undefined as string | undefined);
+export const counter = writable<number>(30);

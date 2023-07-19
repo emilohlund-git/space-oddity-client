@@ -17,20 +17,17 @@
 
 	let containerRef: HTMLDivElement;
 
-	// Auto-scroll to the bottom of the container
 	const scrollToBottom = () => {
 		containerRef.scrollTo({
 			top: containerRef.scrollHeight,
-			behavior: 'smooth' // You can change this to 'auto' for instant scrolling
+			behavior: 'smooth'
 		});
 	};
 
-	// Call scrollToBottom after each update
 	afterUpdate(() => {
 		scrollToBottom();
 	});
 
-	// Call scrollToBottom on initial mount
 	onMount(() => {
 		scrollToBottom();
 	});

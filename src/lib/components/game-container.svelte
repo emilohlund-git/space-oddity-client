@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { socket } from '$lib/socket-client';
-	import { gameState, player, winner } from '$lib/store';
+	import { counter, gameState, player, winner } from '$lib/store';
 	import { onMount } from 'svelte';
 	import type { Player } from '../types';
-	import ChatWindow from './chat-window.svelte';
+	import Timer from './common/timer.svelte';
 	import Deck from './deck.svelte';
 	import OpponentHand from './opponent-hand.svelte';
 	import PlayerHand from './player-hand.svelte';
 	import Table from './table.svelte';
-	import WinnerOverlay from './winner-overlay.svelte';
 
 	onMount(() => {
 		socket.on('PickedCard', (payload) => {
@@ -27,6 +26,7 @@
 		});
 		socket.on('ChangeTurn', (payload) => {
 			gameState.set(payload);
+			counter.set(30);
 		});
 		socket.on('PlayedCard', (payload) => {
 			gameState.set(payload);
@@ -48,35 +48,21 @@
 </script>
 
 <div class="flex items-center px-2 py-4 justify-start w-full h-full">
-	<WinnerOverlay />
-	<div class="flex flex-col justify-between gap-y-8 self-end min-h-full">
-		<div>
-			{#if me}
-				<div class="flex p-4 border-[1px] border-gray-700 border-opacity-20">
-					You: <span class="font-bold">{me.username}</span>
-				</div>
-			{/if}
-
-			<div class="flex p-4 border-[1px] text-lg border-gray-700 border-opacity-20">
-				Turn: <span class="font-bold">{currentPlayer.username}</span>'s turn
-			</div>
-		</div>
-
-		<div class="flex flex-col self-end">
-			<Table />
-			<ChatWindow type="game" />
-		</div>
+	<div class="absolute right-40 top-1/2 -translate-y-1/2">
+		<Deck />
 	</div>
-	<div class="flex flex-col justify-between w-full h-full">
-		<div class="flex flex-col gap-y-8 items-center justify-center h-full">
-			{#each $gameState.lobby.users as user}
-				{#if user.id === $player.id}
-					<PlayerHand {user} />
-				{:else}
-					<OpponentHand {user} />
-					<Deck />
-				{/if}
-			{/each}
-		</div>
+	<div class="absolute left-40 top-1/2 -translate-y-1/2">
+		<p class="text-xl font-bold">{currentPlayer.username}'s turn</p>
+		<Timer />
+	</div>
+	<div class="flex flex-col gap-y-8 items-center justify-between h-full w-full">
+		{#each $gameState.lobby.users as user}
+			{#if user.id === $player.id}
+				<PlayerHand {user} />
+			{:else}
+				<OpponentHand {user} />
+				<Table />
+			{/if}
+		{/each}
 	</div>
 </div>
