@@ -121,6 +121,7 @@ export enum Lights {
 
 export type Card = {
   id: string;
+  description?: string;
   type: CardType;
   value: number;
   graphic: string;

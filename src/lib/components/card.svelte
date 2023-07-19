@@ -58,6 +58,11 @@
 		$gameState.light === 'red' ? 'bg-red-500' : 'bg-[rgb(0,163,210)]'
 	}`}
 />
+{#if item.description}
+	<div class="tooltip absolute text-lg" data-tip={item.description}>
+		<button class="btn">ℹ️</button>
+	</div>
+{/if}
 <div
 	class={`${$gameState.light === 'red' && item.specialEffect ? 'ring-red-500' : ''} ${
 		$gameState.light === 'blue' && item.specialEffect ? 'ring-blue-500' : ''
