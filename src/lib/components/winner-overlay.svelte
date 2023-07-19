@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { winner } from '../store';
+	import ChatWindow from './chat-window.svelte';
 </script>
 
 <div
@@ -8,5 +9,6 @@
 >
 	{#if $winner.username}
 		<p>⭐ Winner: <span class="font-bold">{$winner.username}</span></p>
+		<ChatWindow type="game" />
 	{/if}
 </div>
